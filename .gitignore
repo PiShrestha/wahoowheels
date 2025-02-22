@@ -61,6 +61,20 @@ local_settings.py
 db.sqlite3
 db.sqlite3-journal
 
+# Python files
+__pycache__/
+.venv/
+venv/
+.env
+
+# Django files
+staticfiles/
+db.sqlite3
+
+# macOS files
+.DS_Store
+.DS_Store.
+
 # Flask stuff:
 instance/
 .webassets-cache
@@ -169,3 +183,6 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+
+
