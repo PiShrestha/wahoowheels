@@ -4,7 +4,7 @@ from rest_framework import generics
 from .serializers import NoteSerializer, UserRegistrationSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from math import radians, cos, sin, asin, sqrt
-from datetime import timedelta, date
+from datetime import timedelta, date, datetime
 from .models import Ride, Booking
 from .serializers import RideSerializer, BookingSerializer
 from rest_framework import status
@@ -66,7 +66,7 @@ class RegisterView(APIView):
             user.save()
             current_site = get_current_site(request)
             mail_subject = 'Activate your account.'
-            message = render_to_string('/templates/api/activation_email.html', {
+            message = render_to_string('templates/api/activation_email.html', {
                 'user': user,
                 'domain': current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
@@ -122,6 +122,9 @@ class RideListCreate(generics.ListCreateAPIView):
         to_lat = self.request.query_params.get("to_lat")
         to_lon = self.request.query_params.get("to_lon")
         date_str = self.request.query_params.get("date")
+        pickup = self.request.query_params.get("from_location")
+        dropoff = self.request.query_params.get("to_location")
+        time_str = self.request.query_params.get("time")
 
         if from_lat and from_lon:
             from_lat, from_lon = float(from_lat), float(from_lon)
@@ -134,19 +137,51 @@ class RideListCreate(generics.ListCreateAPIView):
         # If a date is provided, find closest match (± 2 days)
         if date_str:
             try:
-                target_date = date.fromisoformat(date_str)
-                date_range = [target_date - timedelta(days=2), target_date + timedelta(days=2)]
+                # Parse the date using datetime
+                target_date = datetime.strptime(date_str, '%Y-%m-%d').date()  # Ensure it's a date object
+                date_range = [target_date - timedelta(days=1.5), target_date + timedelta(days=1.5)]
                 queryset = [ride for ride in queryset if date_range[0] <= ride.date <= date_range[1]]
             except ValueError:
-                pass  # Ignore invalid date format
+                pass  # If invalid date format, ignore
+        
+        if time_str:
+            try:
+                target_time = datetime.strptime(time_str, '%H:%M').time()  # Convert to time object
+                queryset = [
+                    ride for ride in queryset if 
+                    abs(datetime.combine(datetime.today(), ride.time) - datetime.combine(datetime.today(), target_time)) <= timedelta(hours=5)
+                ]
+            except ValueError:
+                pass  # If invalid time format, ignore
+
+        if pickup:
+            queryset = queryset.filter(from_location=pickup)
+        if dropoff:
+            queryset = queryset.filter(to_location=dropoff)
+    
 
         return queryset
 
     def perform_create(self, serializer):
+        # if serializer.is_valid():
+        #     serializer.save(driver=self.request.user)
+        # else:
+        #     print(serializer.errors)
         if serializer.is_valid():
-            serializer.save(driver=self.request.user)
+            # Save the ride and associate it with the driver (who is the current authenticated user)
+            ride = serializer.save(driver=self.request.user)
+
+            # After creating the ride, automatically add the driver as a passenger
+            # Check if there are available seats before adding the driver
+            if ride.remaining_seats() > 0:
+                Booking.objects.create(ride=ride, passenger=self.request.user, status="confirmed")
+            else:
+                # If no seats are available, handle the error (you can raise an exception if needed)
+                pass
         else:
             print(serializer.errors)
+
+    
 
 class RideDelete(generics.DestroyAPIView):
     serializer_class = RideSerializer
@@ -179,3 +214,60 @@ class BookingDelete(generics.DestroyAPIView):
 
     def get_queryset(self):
         return Booking.objects.filter(passenger=self.request.user)
+    
+class GetSpecificRide(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, ride_id):
+        if ride_id:
+            try:
+                ride = Ride.objects.get(id=ride_id)
+                serializer = RideSerializer(ride)
+                return Response(serializer.data)
+            except Ride.DoesNotExist:
+                return Response({"error": "Ride not found"}, status=status.HTTP_404_NOT_FOUND)
+        else:
+            return Response({"error": "Ride ID is required"}, status=status.HTTP_400_BAD_REQUEST)
+    
+
+
+from django.db import transaction
+
+class AddPassengerToRide(APIView):
+    permission_classes = [IsAuthenticated]
+
+    @transaction.atomic
+    def post(self, request, ride_id):
+        try:
+            ride = Ride.objects.get(id=ride_id)
+
+            passenger_id = self.request.user.id
+            # Extract passenger ID from request
+            if not passenger_id:
+                return Response({"error": "Passenger ID is required"}, status=status.HTTP_400_BAD_REQUEST)
+
+            # Check if ride has available seats
+            if ride.remaining_seats() <= 0:
+                return Response({"error": "No more seats available"}, status=status.HTTP_400_BAD_REQUEST)
+
+            # Check if passenger exists
+            try:
+                passenger = CustomUser.objects.get(id=passenger_id)
+            except CustomUser.DoesNotExist:
+                return Response({"error": "Passenger not found"}, status=status.HTTP_400_BAD_REQUEST)
+
+            # Prevent duplicate bookings
+            if Booking.objects.filter(ride=ride, passenger=passenger).exists():
+                return Response({"error": "Passenger is already booked on this ride"}, status=status.HTTP_400_BAD_REQUEST)
+
+            # Create booking
+            Booking.objects.create(ride=ride, passenger=passenger, status="confirmed")
+            ride.seats_taken += 1
+            ride.save()
+
+            return Response({"message": "Passenger added successfully"}, status=status.HTTP_201_CREATED)
+
+        except Ride.DoesNotExist:
+            return Response({"error": "Ride not found"}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)

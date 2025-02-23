@@ -11,6 +11,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import CustomNavbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Rides from "./pages/Rides";
+import Bookings from "./pages/Bookings";
 
 function Logout() {
   localStorage.clear();
@@ -46,6 +47,7 @@ function AppContent() {
           <Route path="/logout" element={<Logout />} />
           <Route path="/register" element={<RegisterAndLogout />} />
           <Route path="/rides" element={<Rides />} />
+          <Route path="/bookings" element={<Bookings />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
