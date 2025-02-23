@@ -1,10 +1,12 @@
-import react from 'react'
-import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom"
-import Login from "./pages/Login"
-import Register from "./pages/Register"
-import Home from "./pages/Home"
-import NotFound from './pages/NotFound'
-import ProtectedRoute from './components/ProtectedRoute'
+import React from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Home from "./pages/Home";
+import NotFound from "./pages/NotFound";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Map from "./components/Map";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function Logout() {
   localStorage.clear()
@@ -33,6 +35,7 @@ function App() {
         <Route path="/logout" element={<Logout />}/>
         <Route path="/register" element={<RegisterAndLogout />}/>
         <Route path="*" element={<NotFound />}> </Route>
+        <Route path="/map" element={<Map />} /> 
       </Routes>
     </BrowserRouter>
   )
