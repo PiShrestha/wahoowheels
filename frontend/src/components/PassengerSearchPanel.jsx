@@ -110,9 +110,6 @@ function PassengerSearchPanel({
       className="d-flex flex-column justify-content-start"
       style={{ width: "85%" }}
     >
-      <div className="m-3">
-        <h2 className="fw-bold fs-2 font-monospace">Search for a ride</h2>
-      </div>
 
       {/* Pickup */}
       <div className="position-relative mb-3">
@@ -127,7 +124,7 @@ function PassengerSearchPanel({
           {pickup && (
             <button
               type="button"
-              className="btn btn-sm btn-danger ms-2"
+              className="btn btn-sm btn-secondary ms-2"
               onClick={handleClearPickup}
             >
               X
@@ -165,7 +162,7 @@ function PassengerSearchPanel({
           {dropoff && (
             <button
               type="button"
-              className="btn btn-sm btn-danger ms-2"
+              className="btn btn-sm btn-secondary ms-2"
               onClick={handleClearDropoff}
             >
               X
@@ -189,12 +186,6 @@ function PassengerSearchPanel({
           </ul>
         )}
       </div>
-
-      {/* Pickup Now or Schedule */}
-      <select className="form-select mb-2">
-        <option>Pickup now</option>
-        <option>Schedule for later</option>
-      </select>
 
       {/* Ride Date & Time */}
       <div className="row g-2 mb-3 align-items-end">

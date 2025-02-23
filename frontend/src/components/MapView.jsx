@@ -164,11 +164,11 @@ function MapView({
   };
 
   return (
-    <div className="position-relative m-3 p-2" style={{ width: "60%" }}>
+    <div className="position-relative m-3 p-2" style={{ top:"7%", width: "50%", height: "70%" ,left: "1%"}}>
       <div ref={mapContainerRef} className="w-100 h-100" />
-      <div className="position-absolute top-0 start-0 font-monospace m-4 p-2 bg-secondary text-white rounded">
-        Longitude: {center[0].toFixed(4)} | Latitude: {center[1].toFixed(4)} |
-        Zoom: {zoom.toFixed(2)}
+      <div className="position-absolute top-0 start-0 m-4 font-monospace p-2 bg-secondary text-white rounded" style={{fontSize: "90%"}}>
+        Longitude: {center[0].toFixed(3)} | Latitude: {center[1].toFixed(3)} |
+        Zoom: {zoom.toFixed(1)}
       </div>
       <div className="position-absolute top-0 end-0 m-4">
         <select

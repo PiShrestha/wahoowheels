@@ -14,7 +14,8 @@ function DriverSearchPanel({
 
   // Extra fields for driver mode
   const [vehicleModel, setVehicleModel] = useState("");
-  const [licensePlate, setLicensePlate] = useState("");
+  const [luggageCap, setLuggageCap] = useState("");
+  const [seats, setSeats] = useState("");
 
   const handlePickupInputChange = async (e) => {
     const query = e.target.value;
@@ -84,11 +85,9 @@ function DriverSearchPanel({
 
   return (
     <div
-      className="bg-light d-flex flex-column justify-content-start"
-      style={{ width: "95%" }}
+      className="d-flex flex-column justify-content-start"
+      style={{ width: "85%" }}
     >
-      <h2 className="fw-bold font-monospace">List a ride</h2>
-
       {/* Pickup Input */}
       <div className="position-relative mb-3">
         <div className="d-flex align-items-center">
@@ -102,7 +101,7 @@ function DriverSearchPanel({
           {pickup && (
             <button
               type="button"
-              className="btn btn-sm btn-danger ms-2"
+              className="btn btn-sm btn-secondary ms-2"
               onClick={handleClearPickup}
             >
               X
@@ -140,7 +139,7 @@ function DriverSearchPanel({
           {dropoff && (
             <button
               type="button"
-              className="btn btn-sm btn-danger ms-2"
+              className="btn btn-sm btn-secondary ms-2"
               onClick={handleClearDropoff}
             >
               X
@@ -165,11 +164,6 @@ function DriverSearchPanel({
         )}
       </div>
 
-      <select className="form-select mb-2">
-        <option>Pickup now</option>
-        <option>Schedule for later</option>
-      </select>
-
       {/* Extra fields for drivers */}
       <div className="mb-3">
         <input
@@ -181,13 +175,25 @@ function DriverSearchPanel({
           required
         />
       </div>
+
       <div className="mb-3">
         <input
           type="text"
           className="form-control"
-          placeholder="License Plate (e.g., ABC-1234)"
-          value={licensePlate}
-          onChange={(e) => setLicensePlate(e.target.value)}
+          placeholder="Number of Seats Available"
+          value={seats}
+          onChange={(e) => setSeats(e.target.value)}
+          required
+        />
+      </div>
+
+      <div className="mb-3">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Luggage Capacity"
+          value={luggageCap}
+          onChange={(e) => setLuggageCap(e.target.value)}
           required
         />
       </div>

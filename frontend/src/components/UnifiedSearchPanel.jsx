@@ -22,27 +22,60 @@ function UnifiedSearchPanel({
   }, [mode, onClearPickup, onClearDropoff]);
 
   return (
-    <div className="bg-light m-4 p-4 rounded shadow" style={{ width: "30%" }}>
-      <div className="mb-4">
-        <label className="me-3 form-check-label">
+    <div
+      className="position-relative rounded p-4"
+      style={{
+        left: "5%",
+        top: "10%",
+        width: "40%",
+        zIndex: 9999,
+      }}
+    >
+      <h1 className="fw-bold mb-3">
+        {mode === "passenger" ? "Search for a ride" : "List a ride"}
+      </h1>
+
+      <div className="d-flex mb-4">
+        <div className="btn-group" role="group" aria-label="Toggle mode">
           <input
             type="radio"
-            value="passenger"
+            className="btn-check"
+            name="mode"
+            id="passenger"
+            autoComplete="off"
             checked={mode === "passenger"}
             onChange={() => setMode("passenger")}
-          />{" "}
-          Passenger
-        </label>
-        <label className="form-check-label">
+          />
+          <label
+            className={`btn ${
+              mode === "passenger" ? "btn-secondary" : "btn-outline-secondary"
+            }`}
+            htmlFor="passenger"
+          >
+            Passenger
+          </label>
+
           <input
             type="radio"
-            value="driver"
+            className="btn-check"
+            name="mode"
+            id="driver"
+            autoComplete="off"
             checked={mode === "driver"}
             onChange={() => setMode("driver")}
-          />{" "}
-          Driver
-        </label>
+          />
+          <label
+            className={`btn ${
+              mode === "driver" ? "btn-secondary" : "btn-outline-secondary"
+            }`}
+            htmlFor="driver"
+          >
+            Driver
+          </label>
+        </div>
       </div>
+
+      {/* Render the appropriate search panel based on mode */}
       {mode === "passenger" ? (
         <PassengerSearchPanel
           key="passenger" // forces remount on mode change
