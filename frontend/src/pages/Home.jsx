@@ -237,6 +237,7 @@ function Home() {
       />
       <button type="submit">Create Ride</button>
     </form>
+    <Map></Map>
     </div>
 }
 
