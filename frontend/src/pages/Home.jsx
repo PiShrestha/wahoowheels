@@ -3,6 +3,7 @@ import api from "../api"
 import Note from "../components/Note"
 import Ride from "../components/Ride"
 import "../styles/Home.css"
+import Map from "../components/MapContainer"
 
 function Home() {
     const [notes, setNotes] = useState([]);
