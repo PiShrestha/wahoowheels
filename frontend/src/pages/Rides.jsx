@@ -31,7 +31,9 @@ function RidesList() {
     <Container className="mt-5">
       <h2 className="text-center mb-4">Available Rides</h2>
       {rides.length === 0 ? (
-        <p className="text-center">No rides found. Try modifying your search.</p>
+        <p className="text-center">
+          No rides found. Try modifying your search.
+        </p>
       ) : (
         <Row className="g-4">
           {rides.map((ride) => (
