@@ -23,7 +23,7 @@ function UnifiedSearchPanel({
 
   return (
     <div
-      className="position-relative rounded p-4"
+      className="position-relative rounded p-2"
       style={{
         left: "5%",
         top: "10%",

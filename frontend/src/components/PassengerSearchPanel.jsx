@@ -14,7 +14,7 @@ function PassengerSearchPanel({
   const [dropoff, setDropoff] = useState("");
   const [dropoffSuggestions, setDropoffSuggestions] = useState([]);
 
-  // New fields: date & time
+  // date & time
   const [rideDate, setRideDate] = useState("");
   const [rideTime, setRideTime] = useState("");
 
