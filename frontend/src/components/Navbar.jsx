@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Navbar, Nav, Container, Button, NavDropdown } from "react-bootstrap";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { ACCESS_TOKEN } from "../constants"; 
+import { ACCESS_TOKEN } from "../constants";
 
 const CustomNavbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -23,15 +23,22 @@ const CustomNavbar = () => {
   return (
     <Navbar expand="lg" bg="dark" variant="dark" className="shadow-sm">
       <Container>
-        <Navbar.Brand as={Link} to="/" className="fw-bold fs-4 text-white">
-          WahooWheels
+        <Navbar.Brand as={Link} to="/" className="fw-bold fs-4">
+          <span style={{ color: "#e57200" }}>Wahoo</span>
+          <span style={{ color: "inherit" }}>Wheels</span>
         </Navbar.Brand>
 
         <Nav className="me-auto">
           <NavDropdown title="About Us" id="about-dropdown">
-            <NavDropdown.Item as={Link} to="/about">Our Mission</NavDropdown.Item>
-            <NavDropdown.Item as={Link} to="/team">Meet the Team</NavDropdown.Item>
-            <NavDropdown.Item as={Link} to="/faq">FAQs</NavDropdown.Item>
+            <NavDropdown.Item as={Link} to="/about">
+              Our Mission
+            </NavDropdown.Item>
+            <NavDropdown.Item as={Link} to="/team">
+              Meet the Team
+            </NavDropdown.Item>
+            <NavDropdown.Item as={Link} to="/faq">
+              FAQs
+            </NavDropdown.Item>
           </NavDropdown>
         </Nav>
 
@@ -44,20 +51,39 @@ const CustomNavbar = () => {
 
             {isLoggedIn ? (
               <NavDropdown title="Profile" id="profile-dropdown">
-                <NavDropdown.Item as={Link} to="/profile">My Profile</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/bookings">My Bookings</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/settings">Settings</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/profile">
+                  My Profile
+                </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/bookings">
+                  My Bookings
+                </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/settings">
+                  Settings
+                </NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item onClick={handleLogout} className="text-danger">
+                <NavDropdown.Item
+                  onClick={handleLogout}
+                  className="text-danger"
+                >
                   Logout
                 </NavDropdown.Item>
               </NavDropdown>
             ) : (
               <>
-                <Button as={Link} to="/login" variant="outline-light" className="me-2">
+                <Button
+                  as={Link}
+                  to="/login"
+                  variant="outline-light"
+                  className="me-2"
+                >
                   Log In
                 </Button>
-                <Button as={Link} to="/register" variant="light" className="text-dark">
+                <Button
+                  as={Link}
+                  to="/register"
+                  variant="light"
+                  className="text-dark"
+                >
                   Sign Up
                 </Button>
               </>

@@ -3,7 +3,7 @@ import SearchPanel from "./UnifiedSearchPanel";
 import MapView from "./MapView";
 
 function MapContainer() {
-  const INITIAL_CENTER = [-78.5042, 38.0338];
+  const INITIAL_CENTER = [-78.504, 38.034];
   const [center, setCenter] = useState(INITIAL_CENTER);
   const [zoom, setZoom] = useState(17);
   const TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
