@@ -1,11 +1,11 @@
 from rest_framework import serializers
 from .models import Note
 from .models import CustomUser
+from .models import Ride, Booking
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
-from .models import Ride, Booking
-
+    
     class Meta:
         model = CustomUser
         fields = ('username', 'email', 'password')
