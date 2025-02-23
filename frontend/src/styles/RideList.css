@@ -6,13 +6,6 @@ body {
     padding: 0;
   }
   
-  /* Container Styling */
-  .container {
-    max-width: 900px;
-    margin: auto;
-    padding: 20px;
-  }
-  
   /* Table Styles */
   .table {
     width: 100%;
@@ -29,7 +22,7 @@ body {
   }
   
   .table th {
-    background-color: #007bff;
+    background-color: #3a4047;
     color: white;
   }
   
@@ -46,7 +39,7 @@ body {
   }
   
   .accordion-button:hover {
-    color: #007bff;
+    color: #000000;
   }
   
   /* Ride Details */
@@ -79,7 +72,7 @@ body {
 
   
   .search-summary {
-    background: #007bff;
+    background: #282a2d;
     color: white;
     padding: 10px;
     text-align: center;
