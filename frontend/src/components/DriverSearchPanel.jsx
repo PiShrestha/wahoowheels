@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import api from "../api";
 
 function DriverSearchPanel({
   onSearch,
@@ -20,6 +22,10 @@ function DriverSearchPanel({
   const [vehicleModel, setVehicleModel] = useState("");
   const [luggageCap, setLuggageCap] = useState("");
   const [seats, setSeats] = useState("");
+
+  const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const handlePickupInputChange = async (e) => {
     const query = e.target.value;
@@ -81,10 +87,33 @@ function DriverSearchPanel({
     onClearDropoff();
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
-    // Pass an object containing both common and driver-specific fields.
-    onSearch({ pickup, dropoff, vehicleModel, licensePlate });
+
+    try {
+      const response = await api.post("/api/rides/", {
+        // Matches Django field in models.Ride
+        from_location: pickup,
+        to_location: dropoff,
+        date: rideDate,
+        time: rideTime,
+        vehicle_model: vehicleModel,
+        luggage_capacity: luggageCap,
+        seats_available: seats,
+      });
+
+      if (response.status === 201) {
+        console.log("Ride listed successfully!");
+        navigate("/");
+      } else {
+        alert(`Error: ${response.data.message || "Failed to list ride."}`);
+      }
+    } catch (error) {
+      alert("Failed to connect.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
