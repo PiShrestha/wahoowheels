@@ -48,9 +48,10 @@ class NoteDelete(generics.DestroyAPIView):
 
 ##############################################################################
 
-class CreateUserView(generics.CreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+# class CreateUserView(generics.CreateAPIView):
+#     queryset = User.objects.all()
+#     serializer_class = UserSerializer
+#     permission_classes = [AllowAny]
 
 
 class RegisterView(APIView):
@@ -78,6 +79,19 @@ class RegisterView(APIView):
 
 class ActivateAccount(APIView):
     permission_classes = [AllowAny]
+    def get(self, request, uidb64, token):
+        try:
+            uid = force_str(urlsafe_base64_decode(uidb64))
+            user = CustomUser.objects.get(pk=uid)
+        except (TypeError, ValueError, OverflowError, CustomUser.DoesNotExist):
+            user = None
+        if user is not None and account_activation_token.check_token(user, token):
+            user.is_active = True
+            user.email_verified = True
+            user.save()
+            return redirect(f'http://localhost:5173/login')
+        else:
+            return redirect(f'http://localhost:5173/register')
 
 ##########################################################################
 
@@ -165,16 +179,3 @@ class BookingDelete(generics.DestroyAPIView):
 
     def get_queryset(self):
         return Booking.objects.filter(passenger=self.request.user)
-    def get(self, request, uidb64, token):
-        try:
-            uid = force_str(urlsafe_base64_decode(uidb64))
-            user = CustomUser.objects.get(pk=uid)
-        except (TypeError, ValueError, OverflowError, CustomUser.DoesNotExist):
-            user = None
-        if user is not None and account_activation_token.check_token(user, token):
-            user.is_active = True
-            user.email_verified = True
-            user.save()
-            return redirect(f'http://localhost:5173/login')
-        else:
-            return redirect(f'http://localhost:5173/register')
