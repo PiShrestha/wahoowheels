@@ -5,7 +5,8 @@ function NotFound() {
   return (
     <div className="not-found-container">
       <h1>404 - Page Not Found</h1>
-      <p>Oops! The page you are looking for doesn't exist.</p>
+      <h2>We are sorry to say that this page is still in development due to extensive time and personal restrictions</h2>
+      <h2>Please check back at future time for updates</h2>
       <Link to="/" className="home-button">Go to Homepage</Link>
     </div>
   );
