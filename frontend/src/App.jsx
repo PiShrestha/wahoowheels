@@ -1,7 +1,13 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useLocation,
+} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./styles/index.css"
+import "./styles/index.css";
 
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -11,6 +17,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import CustomNavbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Rides from "./pages/Rides";
+import Confirmation from "./pages/Confirmation";
 
 function Logout() {
   localStorage.clear();
@@ -22,10 +29,10 @@ function RegisterAndLogout() {
   return <Register />;
 }
 
-
 function AppContent() {
   const location = useLocation();
-  const isFooterHidden = location.pathname === "/login" || location.pathname === "/register";
+  const isFooterHidden =
+    location.pathname === "/login" || location.pathname === "/register";
 
   return (
     <div className="d-flex flex-column min-vh-100">
@@ -42,10 +49,25 @@ function AppContent() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/rides"
+            element={
+              <ProtectedRoute>
+                <Rides />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/confirmation"
+            element={
+              <ProtectedRoute>
+                <Confirmation />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/register" element={<RegisterAndLogout />} />
-          <Route path="/rides" element={<Rides />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
@@ -55,7 +77,6 @@ function AppContent() {
     </div>
   );
 }
-
 
 function App() {
   return (

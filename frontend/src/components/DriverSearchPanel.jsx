@@ -105,7 +105,11 @@ function DriverSearchPanel({
 
       if (response.status === 201) {
         console.log("Ride listed successfully!");
-        navigate("/");
+        navigate(
+          `/confirmation?pickup=${encodeURIComponent(pickup)}&dropoff=${encodeURIComponent(
+            dropoff
+          )}&date=${rideDate}&time=${rideTime}`
+        );
       } else {
         alert(`Error: ${response.data.message || "Failed to list ride."}`);
       }
