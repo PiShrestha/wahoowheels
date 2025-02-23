@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import "bootstrap/dist/css/bootstrap.min.css";
+import CustomNavbar from "./components/Navbar";
 
 function Logout() {
   localStorage.clear()
@@ -21,6 +22,7 @@ function RegisterAndLogout() {
 function App() {
   return (
     <BrowserRouter>
+      <CustomNavbar />
       <Routes>
         <Route
           path="/"
