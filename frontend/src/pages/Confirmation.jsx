@@ -11,7 +11,7 @@ function Confirmation() {
   const time = queryParams.get("time");
 
   return (
-    <Container className="mt-5 text-center">
+    <Container className="vh-100 mt-5 text-center">
       <h2>Ride Listed Successfully!</h2>
       <p><strong>Pickup:</strong> {pickup}</p>
       <p><strong>Dropoff:</strong> {dropoff}</p>
