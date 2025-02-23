@@ -11,7 +11,7 @@ function Form({route, method}) {
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
 
-    const name = "Login";
+    const name = "Log in";
 
     const handleSubmit = async (e) => {
         setLoading(true);
@@ -34,8 +34,8 @@ function Form({route, method}) {
         }
     }
 
-    return <form onSubmit={handleSubmit} classname="form-container">
-        <h1>{name}</h1>
+    return <form onSubmit={handleSubmit} className="form-container">
+        <h1 className="form-title">{"Log in"}</h1>
         <input
             className="form-input"
             type="text"
@@ -52,7 +52,7 @@ function Form({route, method}) {
         />
         {loading && <LoadingIndicator/>}
         <button className="form-button" type="submit">
-            {name}
+            {"Submit"}
         </button>
     </form>
 }

@@ -36,7 +36,7 @@ function FormRegister({route}) {
     }
 
     return <form onSubmit={handleSubmit} className="form-container">
-        <h1>{name}</h1>
+        <h1 className="form-title">{"Sign up"}</h1>
         <input
             className="form-input"
             type="text"
@@ -60,7 +60,7 @@ function FormRegister({route}) {
         />
         {loading && <LoadingIndicator/>}
         <button className="form-button" type="submit">
-            {name}
+            {"Submit"}
         </button>
     </form>
 }

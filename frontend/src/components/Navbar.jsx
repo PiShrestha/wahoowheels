@@ -41,9 +41,10 @@ const CustomNavbar = () => {
         {/* RIGHT - Help & Authentication */}
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            <Nav.Link as={Link} to="/help" className="text-white">
+            <Nav.Link as={Link} to="/help" className="text-white me-1">
               Help
             </Nav.Link>
+
 
             {isLoggedIn ? (
               // If logged in, show Profile Dropdown

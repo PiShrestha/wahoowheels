@@ -1,0 +1,5 @@
+.content-area {
+    min-height: calc(100vh - 50px); /* Adjust 120px to match your Navbar height */
+    padding-bottom: 2rem; /* Adds some space before footer */
+  }
+  
