@@ -41,14 +41,7 @@ function AppContent() {
       {/* Main content */}
       <div className="flex-grow-1 content-area">
         <Routes>
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-                <Home />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/" element={<Home />}></Route>
           <Route
             path="/rides"
             element={
@@ -68,6 +61,7 @@ function AppContent() {
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/register" element={<RegisterAndLogout />} />
+          <Route path="/rides" element={<Rides />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

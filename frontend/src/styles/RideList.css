@@ -1,0 +1,89 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Container Styling */
+  .container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+  }
+  
+  /* Table Styles */
+  .table {
+    width: 100%;
+    background-color: #ffffff;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .table th, .table td {
+    padding: 15px;
+    text-align: center;
+    font-size: 18px; /* ✅ Bigger Font */
+  }
+  
+  .table th {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  /* Expand Button */
+  .accordion-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+  }
+  
+  .accordion-button:hover {
+    color: #007bff;
+  }
+  
+  /* Ride Details */
+  .ride-details {
+    background: #e9ecef;
+    padding: 15px;
+    margin-top: 5px;
+    border-radius: 5px;
+  }
+  
+  /* Request Button */
+  .request-btn {
+    font-size: 16px;
+    padding: 10px;
+    width: 100%;
+  }
+  
+  .requested {
+    background-color: #6c757d !important;
+    cursor: not-allowed;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .table th, .table td {
+      font-size: 16px;
+      padding: 10px;
+    }
+  }
+
+  
+  .search-summary {
+    background: #007bff;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    margin-bottom: 15px;
+  }
+    

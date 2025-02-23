@@ -45,6 +45,7 @@ const CustomNavbar = () => {
             {isLoggedIn ? (
               <NavDropdown title="Profile" id="profile-dropdown">
                 <NavDropdown.Item as={Link} to="/profile">My Profile</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/bookings">My Bookings</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/settings">Settings</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={handleLogout} className="text-danger">
