@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -23,7 +24,7 @@ from django.contrib.auth.models import User
 from django.db import models
 
 class Ride(models.Model):
-    driver = models.ForeignKey(User, on_delete=models.CASCADE, related_name="rides_offered")
+    driver = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="rides_offered")
     from_location = models.CharField(max_length=255)
     to_location = models.CharField(max_length=255)
     from_lat = models.FloatField(blank=True, null=True)  # Latitude of starting point
@@ -52,7 +53,7 @@ class Ride(models.Model):
 
 class Booking(models.Model):
     ride = models.ForeignKey(Ride, on_delete=models.CASCADE, related_name="bookings")
-    passenger = models.ForeignKey(User, on_delete=models.CASCADE, related_name="rides_booked")
+    passenger = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="rides_booked")
     status_choices = [
         ("pending", "Pending"),
         ("confirmed", "Confirmed"),
