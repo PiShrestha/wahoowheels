@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import api from "../api";
 import { Table, Button, Container, Accordion } from "react-bootstrap";
-import "../styles/RideList.css"
-
+import "../styles/RideList.css";
 
 function RidesList() {
   const [rides, setRides] = useState([]);
@@ -19,7 +18,6 @@ function RidesList() {
   useEffect(() => {
     const fetchRides = async () => {
       try {
-        // Filter out the empty parameters from the search
         const params = {};
         if (pickup) params.from_location = pickup;
         if (dropoff) params.to_location = dropoff;
@@ -37,40 +35,16 @@ function RidesList() {
   }, [pickup, dropoff, date, time]);
 
   const handleRequestRide = async (rideId) => {
-    // try {
-    //   const response = await api.post(`/api/bookings/`, { ride: rideId });
-  
-    //   if (response.status === 201) {
-    //     setRides((prevRides) =>
-    //       prevRides.map((ride) =>
-    //         ride.id === rideId
-    //           ? { ...ride, seats_available: ride.seats_available - 1 }
-    //           : ride
-    //       )
-    //     );
-    //     setRequestedRides((prev) => new Set(prev).add(rideId));
-    //     alert("Ride requested successfully!");
-    //   }
-    // } catch (error) {
-    //   console.error("Error requesting ride:", error);
-    //   alert("Failed to request ride. Try again later.");
-    // }
     try {
-      // Update passengers using the new endpoint
+      // Make the API request to add a passenger
       const response = await api.post(`/api/rides/${rideId}/add_passenger/`);
+      setRequestedRides(prev => new Set([...prev, rideId]));
 
+      fetchRides()
       if (response.status === 200) {
-        setRide(prevRide => ({
-          ...prevRide,
-          seats_available: prevRide.seats_available - 1,
-          seats_taken: prevRide.seats_taken + 1
-        }));
-        setIsRequested(true);
         alert("Ride requested successfully!");
       }
     } catch (error) {
-      console.error("Error requesting ride:", error);
-      alert("Failed to request ride. Try again later.");
     }
   };
 
@@ -122,7 +96,7 @@ function RidesList() {
                   <td>{ride.to_location}</td>
                   <td>{formatDate(ride.date)}</td> {/* Display formatted date */}
                   <td>{ride.time}</td>
-                  <td>{`${ride.seats_available} and ${ride.seats_taken}`}</td>
+                  <td>{`${ride.seats_available-ride.seats_taken}`}</td>
                   <td>
                     <Button
                       variant="link"

@@ -29,7 +29,7 @@ function FormRegister({route}) {
         //     }
         }
         catch (error) {
-            alert(error)
+            
         } finally {
             setLoading(false)
             alert("Please Check the Email Provided to Verify")
