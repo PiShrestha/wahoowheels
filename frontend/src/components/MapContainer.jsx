@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import SearchPanel from "./SearchPanel";
+import SearchPanel from "./UnifiedSearchPanel";
 import MapView from "./MapView";
 
 function MapContainer() {
