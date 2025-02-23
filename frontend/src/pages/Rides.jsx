@@ -97,7 +97,9 @@ function RidesList() {
       </h4>
 
       {rides.length === 0 ? (
-        <p className="text-center">No rides found. Try modifying your search.</p>
+        <p className="text-center">
+          No rides found. Try modifying your search.
+        </p>
       ) : (
         <Table className="table">
           <thead>
