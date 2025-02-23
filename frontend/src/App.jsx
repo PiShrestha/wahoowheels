@@ -38,34 +38,35 @@ function AppContent() {
   return (
     <div className="d-flex flex-column min-vh-100">
       <CustomNavbar />
-
-      {/* Main content */}
-      <div className="flex-grow-1 content-area">
-        <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route
-            path="/rides"
-            element={
-              <ProtectedRoute>
-                <Rides />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/confirmation"
-            element={
-              <ProtectedRoute>
-                <Confirmation />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/login" element={<Login />} />
-          <Route path="/logout" element={<Logout />} />
-          <Route path="/register" element={<RegisterAndLogout />} />
-          <Route path="/rides" element={<Rides />} />
-          <Route path="/bookings" element={<Bookings/>} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+      <div className="flex-grow-1">
+        {/* Main content */}
+        <div className="flex-grow-1 content-area">
+          <Routes>
+            <Route path="/" element={<Home />}></Route>
+            <Route
+              path="/rides"
+              element={
+                <ProtectedRoute>
+                  <Rides />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/confirmation"
+              element={
+                <ProtectedRoute>
+                  <Confirmation />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/login" element={<Login />} />
+            <Route path="/logout" element={<Logout />} />
+            <Route path="/register" element={<RegisterAndLogout />} />
+            <Route path="/rides" element={<Rides />} />
+            <Route path="/bookings" element={<Bookings />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
       </div>
 
       {/* Conditionally rendered Footer */}

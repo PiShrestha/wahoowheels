@@ -23,12 +23,12 @@ function UnifiedSearchPanel({
 
   return (
     <div
-      className="position-relative rounded p-2"
+      className="position-relative rounded mb-5 p-2"
       style={{
-        left: "5%",
+        left: "7%",
         top: "10%",
-        width: "40%",
-        zIndex: 9999,
+        width: "35%",
+        marginRight:"5%"
       }}
     >
       <h1 className="fw-bold mb-3">
