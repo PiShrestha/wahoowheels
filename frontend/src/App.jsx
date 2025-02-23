@@ -10,6 +10,7 @@ import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import CustomNavbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import Rides from "./pages/Rides";
 
 function Logout() {
   localStorage.clear();
@@ -44,6 +45,7 @@ function AppContent() {
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/register" element={<RegisterAndLogout />} />
+          <Route path="/rides" element={<Rides />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

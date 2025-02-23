@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function PassengerSearchPanel({
   onSearch,
@@ -16,6 +17,8 @@ function PassengerSearchPanel({
   // New fields: date & time
   const [rideDate, setRideDate] = useState("");
   const [rideTime, setRideTime] = useState("");
+
+  const navigate = useNavigate();
 
   // Fetch suggestions for pickup
   const handlePickupInputChange = async (e) => {
@@ -95,6 +98,11 @@ function PassengerSearchPanel({
     // If your parent wants only pickup as a string, you can keep it as before
     // or pass the entire searchData object:
     onSearch(searchData);
+    navigate(
+      `/rides?pickup=${encodeURIComponent(pickup)}&dropoff=${encodeURIComponent(
+        dropoff
+      )}&date=${rideDate}&time=${rideTime}`
+    );
   };
 
   return (
