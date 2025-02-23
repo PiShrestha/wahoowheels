@@ -95,8 +95,7 @@ function PassengerSearchPanel({
       rideDate,
       rideTime,
     };
-    // If your parent wants only pickup as a string, you can keep it as before
-    // or pass the entire searchData object:
+    
     onSearch(searchData);
     navigate(
       `/rides?pickup=${encodeURIComponent(pickup)}&dropoff=${encodeURIComponent(
