@@ -66,7 +66,7 @@ class RegisterView(APIView):
             user.save()
             current_site = get_current_site(request)
             mail_subject = 'Activate your account.'
-            message = render_to_string('templates/api/activation_email.html', {
+            message = render_to_string('api/activation_email.html', {
                 'user': user,
                 'domain': current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
