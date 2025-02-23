@@ -12,6 +12,10 @@ function DriverSearchPanel({
   const [dropoff, setDropoff] = useState("");
   const [dropoffSuggestions, setDropoffSuggestions] = useState([]);
 
+  //date & time
+  const [rideDate, setRideDate] = useState("");
+  const [rideTime, setRideTime] = useState("");
+
   // Extra fields for driver mode
   const [vehicleModel, setVehicleModel] = useState("");
   const [luggageCap, setLuggageCap] = useState("");
@@ -162,6 +166,49 @@ function DriverSearchPanel({
             ))}
           </ul>
         )}
+      </div>
+
+      {/* Ride Date & Time */}
+      <div className="row g-2 mb-3 align-items-end">
+        {/* Date Field */}
+        <div className="col">
+          <label htmlFor="rideDate" className="form-label fw-semibold">
+            Date
+          </label>
+          <div className="input-group">
+            {/* Optional icon (Bootstrap Icons) */}
+            <span className="input-group-text">
+              <i className="bi bi-calendar3"></i>
+            </span>
+            <input
+              type="date"
+              id="rideDate"
+              className="form-control"
+              value={rideDate}
+              onChange={(e) => setRideDate(e.target.value)}
+            />
+          </div>
+        </div>
+
+        {/* Time Field */}
+        <div className="col">
+          <label htmlFor="rideTime" className="form-label fw-semibold">
+            Time
+          </label>
+          <div className="input-group">
+            {/* Optional icon (Bootstrap Icons) */}
+            <span className="input-group-text">
+              <i className="bi bi-clock"></i>
+            </span>
+            <input
+              type="time"
+              id="rideTime"
+              className="form-control"
+              value={rideTime}
+              onChange={(e) => setRideTime(e.target.value)}
+            />
+          </div>
+        </div>
       </div>
 
       {/* Extra fields for drivers */}
